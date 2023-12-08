@@ -1,25 +1,14 @@
 require('dotenv').config();
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const config = require('./config');
-const routes = require('./routes');
 const errorHandler = require('./middleware/error');
+const routes = require('./routes');
 const pkg = require('./package.json');
 
-const { port } = config;
+const { port, dbUrl } = config;
 const app = express();
-const database = mongoose.connection;
-mongoose.connect(config.dbUrl);
-
-database.on('error', (error) => {
-  console.error(error);
-});
-
-database.once('connected', () => {
-  console.info('Database Connected');
-});
 
 app.set('config', config);
 app.set('pkg', pkg);
@@ -27,6 +16,19 @@ app.set('pkg', pkg);
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+mongoose.Promise = Promise;
+mongoose.connect(dbUrl);
+
+const database = mongoose.connection;
+
+database.on('error', (error) => {
+  console.error('Database connection error:', error);
+});
+
+database.once('connected', () => {
+  console.info('Database Connected');
+});
 
 routes(app, (err) => {
   if (err) {
