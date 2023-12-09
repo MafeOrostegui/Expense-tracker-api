@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const { findByEmail } = require('../../models/user');
 
 const config = require('../../config');
+
 const { secret } = config;
 
 const login = async (req, res) => {
@@ -27,10 +28,9 @@ const login = async (req, res) => {
 
     const token = jwt.sign(
       { id: user.id, email: user.email, name: user.name },
-      secret
+      secret,
     );
     return res.json({ accessToken: token, user });
-
   } catch (error) {
     console.error('Error in login:', error);
     return res.status(500).json({ err: 'Internal server error' });
