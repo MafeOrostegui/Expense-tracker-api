@@ -15,12 +15,22 @@ module.exports = (secret) => (req, res, next) => {
 
   jwt.verify(token, secret, (err, decodedToken) => {
     if (err || !decodedToken.id) {
-      return res.status(403).json({ error: 'Access denied' });
+      return res.status(403).json({ error: 'Access denied', details: err.message });
     }
 
     req.user = decodedToken;
     next();
   });
+};
+
+module.exports.isAuthenticated = (req) => !!req.user;
+
+module.exports.requireAuth = (req, resp, next) => {
+  if (!module.exports.isAuthenticated(req)) {
+    return next(401);
+  }
+
+  next();
 };
 
 module.exports.requireOwnership = (req, res, next) => {

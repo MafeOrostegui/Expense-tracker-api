@@ -121,6 +121,7 @@ const deleteUser = async (req, res) => {
 
       await deleteById(uid);
     }
+    return res.status(200).json({ message: 'User deleted.' });
   } catch (error) {
     console.error('Error in delete user:', error);
     return res.status(500).json({ err: 'Internal server error' });

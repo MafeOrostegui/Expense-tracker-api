@@ -1,5 +1,6 @@
 const authRoute = require('./auth');
 const usersRoute = require('./users');
+const categoriesRoute = require('./categories');
 
 const root = (app, next) => {
   const pkg = app.get('pkg');
@@ -21,4 +22,5 @@ const registerRoutes = (app, routes, callback) => {
   });
 };
 
-module.exports = (app, next) => registerRoutes(app, [authRoute, usersRoute, root], next);
+module.exports = (app, next) => registerRoutes(app, [
+  authRoute, usersRoute, categoriesRoute, root], next);
