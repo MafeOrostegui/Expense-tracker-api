@@ -26,9 +26,9 @@ const getCategories = async (req, res) => {
 };
 
 const getCategory = async (req, res) => {
-  const { id } = req.params;
-
   try {
+    const { id } = req.params;
+    console.log('ID in request:', id);
     const category = await findById(id);
 
     if (!category) {
@@ -63,10 +63,10 @@ const createCategory = async (req, res) => {
 };
 
 const editCategory = async (req, res) => {
-  const { id } = req.params;
   const newData = req.body;
 
   try {
+    const { id } = req.params;
     if (!newData.name && !newData.type) {
       return res
         .status(400)
@@ -87,9 +87,8 @@ const editCategory = async (req, res) => {
 };
 
 const deleteCategory = async (req, res) => {
-  const { id } = req.params;
-
   try {
+    const { id } = req.params;
     const deletedCategory = await deleteById(id);
 
     if (!deletedCategory) {
