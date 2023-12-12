@@ -3,6 +3,7 @@ const usersRoute = require('./users');
 const categoriesRoute = require('./categories');
 const accountsRoute = require('./accounts');
 const incomesRoute = require('./incomes');
+const expensesRoute = require('./expenses');
 
 const root = (app, next) => {
   const pkg = app.get('pkg');
@@ -25,4 +26,4 @@ const registerRoutes = (app, routes, callback) => {
 };
 
 module.exports = (app, next) => registerRoutes(app, [
-  authRoute, usersRoute, categoriesRoute, accountsRoute, incomesRoute, root], next);
+  authRoute, usersRoute, categoriesRoute, accountsRoute, incomesRoute, expensesRoute, root], next);
