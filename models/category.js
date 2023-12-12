@@ -37,8 +37,8 @@ async function deleteById(id) {
   return Category.findByIdAndDelete({ _id: id });
 }
 
-async function create(categoryExpense) {
-  return Category.create(categoryExpense);
+async function create(category) {
+  return Category.create(category);
 }
 
 module.exports = {
