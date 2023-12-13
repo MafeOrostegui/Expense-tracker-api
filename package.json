@@ -7,14 +7,20 @@
     "node": ">=21.x"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "pretest": "eslint .",
+    "test:e2e": "jest --verbose --testPathPattern e2e --globalSetup ./e2e/globalSetup --globalTeardown ./e2e/globalTeardown --runInBand",
+    "test:unit": "jest --verbose --testPathIgnorePatterns e2e",
+    "test": "npm run test:e2e && npm run test:unit",
+    "lint": "eslint .",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@shelf/jest-mongodb": "^4.1.7",
     "bcrypt": "^5.1.1",
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
@@ -25,8 +31,12 @@
     "nodemon": "^3.0.2"
   },
   "devDependencies": {
+    "docdash": "^2.0.2",
     "eslint": "^8.55.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.22.1"
+    "eslint-plugin-import": "^2.29.0",
+    "jest": "^27.5.1",
+    "node-fetch": "^3.1.0",
+    "tree-kill": "^1.2.2"
   }
 }
